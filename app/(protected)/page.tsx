@@ -1,7 +1,6 @@
 import { Prospecto } from "@/interfaces/prospectosInterface";
 import { getProspectos } from "@/actions/prospectosActions";
 import { ProspectosModal } from "@/components/prospectos/ProspectosModal";
-import { DataTableProspectos } from "@/components/DataTableProspectos";
 import { ProspectosComponent } from "@/components/prospectos/ProspectosComponent";
 
 export default async function ProspectosPage() {
