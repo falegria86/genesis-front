@@ -164,7 +164,7 @@ export function DataTableProspectos({
             header: ({ column }) => {
                 return (
                     <div className="flex gap-2 items-center">
-                        <div>Curso</div>
+                        <div>Carrera/Curso</div>
                         <Button
                             variant="ghost"
                             size="icon"
@@ -175,6 +175,11 @@ export function DataTableProspectos({
                     </div>
                 )
             },
+            cell: ({ row }) => {
+                return (
+                    <div className="capitalize">{row.original.curso.split('_').join(' ')}</div>
+                )
+            }
         },
         {
             accessorKey: "plataforma",

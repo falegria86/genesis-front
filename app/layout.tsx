@@ -22,15 +22,17 @@ export default function RootLayout({
     <ClerkProvider localization={esES}>
       <html lang='es'>
         <body>
-          {/* <ThemeProvider
+          <ThemeProvider
             attribute="class"
-            defaultTheme="light"
-            enableSystem
-            disableTransitionOnChange
-          > */}
-          <main>{children}</main>
-          <Toaster />
-          {/* </ThemeProvider> */}
+            defaultTheme="dark"
+          // enableSystem
+          // disableTransitionOnChange
+          >
+            <main className="h-full">
+              {children}
+            </main>
+            <Toaster />
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>

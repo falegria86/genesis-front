@@ -53,7 +53,7 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }: C
     <DayPicker
       disableNavigation
       locale={es}
-      className={cn('p-3 bg-white', className)}
+      className={cn('p-3 bg-slate-600 text-white', className)}
       classNames={{
         months: 'flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0',
         month: 'space-y-4',
@@ -70,7 +70,7 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }: C
         cell: 'h-9 w-9 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20',
         day: cn(buttonVariants({ variant: 'ghost' }), 'h-9 w-9 p-0 font-normal aria-selected:opacity-100'),
         day_range_end: 'day-range-end',
-        day_selected: 'bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground',
+        day_selected: 'bg-slate-500 text-purple-700 hover:bg-primary hover:text-purple-300 focus:bg-slate-400 focus:text-purple-300',
         day_today: 'bg-accent text-accent-foreground',
         day_outside: 'day-outside text-muted-foreground opacity-50 aria-selected:bg-accent/50 aria-selected:text-muted-foreground aria-selected:opacity-30',
         day_disabled: 'text-muted-foreground opacity-50',
@@ -96,7 +96,7 @@ function CalendarComponent({ titulo, translate, ...props }: CalendarProps) {
   const [date, setDate] = React.useState<Date>(new Date());
 
   return (
-    <div className='bg-white p-2 rounded-lg border border-gray-100 shadow-md'>
+    <div className='bg-slate-600 p-2 rounded-lg border border-slate-500 shadow-md'>
       {titulo && (
         <h5 className='font-bold mb-4'>{titulo}</h5>
       )}

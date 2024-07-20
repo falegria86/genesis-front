@@ -27,6 +27,7 @@ import { Prospecto } from "@/interfaces/prospectosInterface";
 import { editProspecto } from "@/actions/prospectosActions";
 import { useToast } from "../ui/use-toast";
 import { estados } from "@/lib/estados";
+import { cursos } from "@/lib/cursos";
 
 export const ProspectosEditForm = ({
     prospectoData,
@@ -165,12 +166,13 @@ export const ProspectosEditForm = ({
                                             <Select onValueChange={field.onChange} defaultValue={field.value}>
                                                 <FormControl>
                                                     <SelectTrigger>
-                                                        <SelectValue placeholder="Selecciona curso de interés..." />
+                                                        <SelectValue placeholder="Selecciona curso..." />
                                                     </SelectTrigger>
                                                 </FormControl>
                                                 <SelectContent>
-                                                    <SelectItem value="Barber">Barber</SelectItem>
-                                                    <SelectItem value="Estilismo">Estilismo</SelectItem>
+                                                    {cursos.map(curso => (
+                                                        <SelectItem key={curso.value} value={curso.value}>{curso.curso}</SelectItem>
+                                                    ))}
                                                 </SelectContent>
                                             </Select>
                                         </FormControl>
