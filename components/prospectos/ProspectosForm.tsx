@@ -1,8 +1,7 @@
 "use client";
 
-import { format } from "date-fns";
 import { useRouter } from "next/navigation";
-import { CirclePlus, CalendarIcon, Save } from "lucide-react";
+import { Save } from "lucide-react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -22,12 +21,8 @@ import {
     SelectValue
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import { ProspectoSchema } from "@/schemas";
-import { CalendarComponent } from "../ui/calendar";
 import { postProspecto } from "@/actions/prospectosActions";
 
 export const ProspectosForm = ({ setOpen }: { setOpen: (open: boolean) => void }) => {

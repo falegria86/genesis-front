@@ -19,7 +19,7 @@ export const ProspectosModal = () => {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button><CirclePlus className="w-4 h-4 mr-2" /> Agregar</Button>
+                <Button><CirclePlus className="w-4 h-4 mr-2" /> Agregar prospecto</Button>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>

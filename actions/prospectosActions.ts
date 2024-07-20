@@ -21,3 +21,15 @@ export const postProspecto = async (body: CreateProspecto) => {
     const data = await resp.json();
     return data.message;
 }
+
+export const deleteProspecto = async (id: string) => {
+    const resp = await fetch(`https://genesis-api-production.up.railway.app/api/prospectos/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+
+    const data = await resp.json();
+    return data.message;
+}
