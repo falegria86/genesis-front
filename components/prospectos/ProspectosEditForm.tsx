@@ -23,33 +23,51 @@ import {
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button";
 import { ProspectoSchema } from "@/schemas";
-import { postProspecto } from "@/actions/prospectosActions";
+import { Prospecto } from "@/interfaces/prospectosInterface";
+import { editProspecto } from "@/actions/prospectosActions";
+import { useToast } from "../ui/use-toast";
 import { estados } from "@/lib/estados";
 
-export const ProspectosForm = ({ setOpen }: { setOpen: (open: boolean) => void }) => {
+export const ProspectosEditForm = ({
+    prospectoData,
+    handleCloseModal
+}:
+    {
+        prospectoData: Prospecto | null,
+        handleCloseModal: () => void
+    }) => {
     const router = useRouter();
+    const { toast } = useToast();
     const form = useForm<z.infer<typeof ProspectoSchema>>({
         resolver: zodResolver(ProspectoSchema),
         defaultValues: {
-            nombre: "",
-            ap_paterno: "",
-            ap_materno: "",
-            genero: "",
-            curso: "",
-            telefono: "",
-            email: "",
-            plataforma: "",
-            municipio: "",
-            estado: "",
+            nombre: prospectoData?.nombre ?? '',
+            ap_paterno: prospectoData?.ap_paterno ?? '',
+            ap_materno: prospectoData?.ap_materno ?? '',
+            genero: prospectoData?.genero.toLowerCase() ?? '',
+            curso: prospectoData?.curso ?? '',
+            telefono: prospectoData?.telefono ?? '',
+            email: prospectoData?.email ?? '',
+            plataforma: prospectoData?.plataforma.toLowerCase() ?? '',
+            municipio: prospectoData?.municipio ?? '',
+            estado: prospectoData?.estado ?? '',
         }
     });
 
     const onSubmit = async (values: z.infer<typeof ProspectoSchema>) => {
-        // console.log(values);
+        const formToSend = {
+            id: prospectoData?.id,
+            ...values
+        }
 
-        const resp = await postProspecto(values);
-        // console.log(resp)
-        setOpen(false);
+        const resp = await editProspecto(formToSend);
+
+        toast({
+            title: "¡Éxito!",
+            description: resp,
+        });
+
+        handleCloseModal();
         router.refresh();
     }
 
@@ -203,8 +221,8 @@ export const ProspectosForm = ({ setOpen }: { setOpen: (open: boolean) => void }
                                                     </SelectTrigger>
                                                 </FormControl>
                                                 <SelectContent>
-                                                    <SelectItem value="Masculino">Masculino</SelectItem>
-                                                    <SelectItem value="Femenino">Femenino</SelectItem>
+                                                    <SelectItem value="masculino">Masculino</SelectItem>
+                                                    <SelectItem value="femenino">Femenino</SelectItem>
                                                 </SelectContent>
                                             </Select>
                                         </FormControl>

@@ -33,3 +33,18 @@ export const deleteProspecto = async (id: string) => {
     const data = await resp.json();
     return data.message;
 }
+
+export const editProspecto = async (body: CreateProspecto) => {
+    if (!body.id) return 'ID es requerido';
+
+    const resp = await fetch(`https://genesis-api-production.up.railway.app/api/prospectos?id=${body.id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body)
+    });
+
+    const data = await resp.json();
+    return data.message;
+}

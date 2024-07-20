@@ -40,7 +40,11 @@ import { useToast } from "./ui/use-toast";
 
 export function DataTableProspectos({
     data,
-}: any) {
+    handleModal,
+}: {
+    data: Prospecto[],
+    handleModal: (prospecto: Prospecto) => void;
+}) {
     const router = useRouter();
     const { toast } = useToast();
 
@@ -149,6 +153,11 @@ export function DataTableProspectos({
                     </div>
                 )
             },
+            cell: ({ row }) => {
+                return (
+                    <div className="capitalize">{row.original.genero}</div>
+                )
+            }
         },
         {
             accessorKey: "curso",
@@ -183,6 +192,11 @@ export function DataTableProspectos({
                     </div>
                 )
             },
+            cell: ({ row }) => {
+                return (
+                    <div className="capitalize">{row.original.plataforma}</div>
+                )
+            }
         },
         {
             accessorKey: "municipio",
@@ -200,6 +214,11 @@ export function DataTableProspectos({
                     </div>
                 )
             },
+            cell: ({ row }) => {
+                return (
+                    <div className="capitalize">{row.original.municipio}</div>
+                )
+            }
         },
         {
             accessorKey: "estado",
@@ -217,6 +236,11 @@ export function DataTableProspectos({
                     </div>
                 )
             },
+            cell: ({ row }) => {
+                return (
+                    <div className="capitalize">{row.original.estado.split('_').join(' ')}</div>
+                )
+            }
         },
         {
             id: "actions",
@@ -243,12 +267,7 @@ export function DataTableProspectos({
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                            <DropdownMenuItem onClick={() => {
-                                toast({
-                                    title: "Prospecto elimninado",
-                                    description: 'wat',
-                                })
-                            }}>Editar</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => handleModal(row.original)}>Editar</DropdownMenuItem>
                             <DropdownMenuItem onClick={() => eliminarProspecto(row.original.id)}>Eliminar</DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
