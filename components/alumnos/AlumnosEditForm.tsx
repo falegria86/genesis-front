@@ -2,7 +2,7 @@
 
 import { format } from "date-fns";
 import { useRouter } from "next/navigation";
-import { CirclePlus, CalendarIcon, Save } from "lucide-react";
+import { CalendarIcon, Save } from "lucide-react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -22,45 +22,61 @@ import {
     SelectValue
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import { AlumnoSchema } from "@/schemas";
 import { CalendarComponent } from "../ui/calendar";
-import { postAlumno } from "@/actions/alumnosActions";
+import { Alumno } from "@/interfaces/alumnosInterface";
 import { estados } from "@/lib/estados";
 import { cursos } from "@/lib/cursos";
+import { editAlumno } from "@/actions/alumnosActions";
+import { useToast } from "../ui/use-toast";
 
-export const AlumnosForm = ({ setOpen }: { setOpen: (open: boolean) => void }) => {
+export const AlumnosEditForm = ({
+    alumnoData,
+    handleCloseModal,
+}: {
+    alumnoData: Alumno | null,
+    handleCloseModal: () => void;
+}) => {
     const router = useRouter();
+    const { toast } = useToast();
     const form = useForm<z.infer<typeof AlumnoSchema>>({
         resolver: zodResolver(AlumnoSchema),
         defaultValues: {
-            nombre: "",
-            ap_paterno: "",
-            ap_materno: "",
-            fec_nacimiento: new Date(),
-            genero: "",
-            carrera: "",
-            telefono: "",
-            email: "",
-            calle: "",
-            num_exterior: "",
-            num_interior: "",
-            colonia: "",
-            cp: "",
-            municipio: "",
-            estado: "",
+            nombre: alumnoData?.nombre ?? '',
+            ap_paterno: alumnoData?.ap_paterno ?? '',
+            ap_materno: alumnoData?.ap_materno ?? '',
+            fec_nacimiento: alumnoData?.fec_nacimiento ? new Date(alumnoData?.fec_nacimiento) : new Date(),
+            genero: alumnoData?.genero ?? '',
+            carrera: alumnoData?.carrera ?? '',
+            telefono: alumnoData?.telefono ?? '',
+            email: alumnoData?.email ?? '',
+            calle: alumnoData?.calle ?? '',
+            num_exterior: alumnoData?.num_exterior ?? '',
+            num_interior: alumnoData?.num_interior ?? '',
+            colonia: alumnoData?.colonia ?? '',
+            cp: alumnoData?.cp ?? '',
+            municipio: alumnoData?.municipio ?? '',
+            estado: alumnoData?.estado ?? '',
         }
     });
 
     const onSubmit = async (values: z.infer<typeof AlumnoSchema>) => {
-        // console.log(values);
+        const formToSend = {
+            id: alumnoData?.id,
+            ...values
+        }
 
-        const resp = await postAlumno(values);
-        console.log(resp)
-        setOpen(false);
+        const resp = await editAlumno(formToSend);
+
+        toast({
+            title: "¡Éxito!",
+            description: resp,
+        });
+
+        handleCloseModal();
         router.refresh();
     }
 

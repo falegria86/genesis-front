@@ -1,24 +1,23 @@
 "use client";
 
 import { useState } from "react"
-import { Prospecto } from "@/interfaces/prospectosInterface"
-import { DataTableProspectos } from "./DataTableProspectos"
 import {
     Dialog,
     DialogContent,
     DialogDescription,
     DialogHeader,
     DialogTitle,
-    DialogTrigger,
 } from "@/components/ui/dialog"
-import { ProspectosEditForm } from "./ProspectosEditForm";
+import { DataTableAlumnos } from "./DataTableAlumnos";
+import { Alumno } from "@/interfaces/alumnosInterface";
+import { AlumnosEditForm } from "./AlumnosEditForm";
 
-export const ProspectosComponent = ({ data }: { data: Prospecto[] }) => {
+export const AlumnosComponent = ({ data }: { data: Alumno[] }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [prospectoData, setProspectoData] = useState<Prospecto | null>(null);
+    const [alumnoData, setAlumnoData] = useState<Alumno | null>(null);
 
-    const handleModal = (prospecto: Prospecto) => {
-        setProspectoData(prospecto)
+    const handleModal = (prospecto: Alumno) => {
+        setAlumnoData(prospecto)
         setIsModalOpen(true);
     }
 
@@ -36,11 +35,11 @@ export const ProspectosComponent = ({ data }: { data: Prospecto[] }) => {
                             Edita la información del prospecto.
                         </DialogDescription>
                     </DialogHeader>
-                    <ProspectosEditForm prospectoData={prospectoData} handleCloseModal={handleCloseModal} />
+                    <AlumnosEditForm alumnoData={alumnoData} handleCloseModal={handleCloseModal} />
                 </DialogContent>
             </Dialog>
 
-            <DataTableProspectos data={data} handleModal={handleModal} />
+            <DataTableAlumnos data={data} handleModal={handleModal} />
         </>
     )
 }

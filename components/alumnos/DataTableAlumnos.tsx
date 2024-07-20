@@ -34,16 +34,17 @@ import {
 } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Prospecto } from "@/interfaces/prospectosInterface";
 import { deleteProspecto } from "@/actions/prospectosActions";
-import { useToast } from "./ui/use-toast";
+import { useToast } from "../ui/use-toast";
+import { Alumno } from "@/interfaces/alumnosInterface";
+import { deleteAlumno } from "@/actions/alumnosActions";
 
-export function DataTableProspectos({
+export function DataTableAlumnos({
     data,
     handleModal,
 }: {
-    data: Prospecto[],
-    handleModal: (prospecto: Prospecto) => void;
+    data: Alumno[],
+    handleModal: (prospecto: Alumno) => void;
 }) {
     const router = useRouter();
     const { toast } = useToast();
@@ -51,7 +52,7 @@ export function DataTableProspectos({
     const [sorting, setSorting] = useState<SortingState>([]);
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
-    const columns: ColumnDef<Prospecto>[] = [
+    const columns: ColumnDef<Alumno>[] = [
         {
             accessorKey: "nombre",
             header: ({ column }) => {
@@ -138,11 +139,11 @@ export function DataTableProspectos({
             },
         },
         {
-            accessorKey: "genero",
+            accessorKey: "carrera",
             header: ({ column }) => {
                 return (
                     <div className="flex gap-2 items-center">
-                        <div>Género</div>
+                        <div>Carrera/Curso</div>
                         <Button
                             variant="ghost"
                             size="icon"
@@ -155,98 +156,15 @@ export function DataTableProspectos({
             },
             cell: ({ row }) => {
                 return (
-                    <div className="capitalize">{row.original.genero}</div>
-                )
-            }
-        },
-        {
-            accessorKey: "curso",
-            header: ({ column }) => {
-                return (
-                    <div className="flex gap-2 items-center">
-                        <div>Curso</div>
-                        <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                        >
-                            <ArrowUpDown className="h-3 w-3" />
-                        </Button>
-                    </div>
-                )
-            },
-        },
-        {
-            accessorKey: "plataforma",
-            header: ({ column }) => {
-                return (
-                    <div className="flex gap-2 items-center">
-                        <div>Plataforma</div>
-                        <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                        >
-                            <ArrowUpDown className="h-3 w-3" />
-                        </Button>
-                    </div>
-                )
-            },
-            cell: ({ row }) => {
-                return (
-                    <div className="capitalize">{row.original.plataforma}</div>
-                )
-            }
-        },
-        {
-            accessorKey: "municipio",
-            header: ({ column }) => {
-                return (
-                    <div className="flex gap-2 items-center">
-                        <div>Municipio</div>
-                        <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                        >
-                            <ArrowUpDown className="h-3 w-3" />
-                        </Button>
-                    </div>
-                )
-            },
-            cell: ({ row }) => {
-                return (
-                    <div className="capitalize">{row.original.municipio}</div>
-                )
-            }
-        },
-        {
-            accessorKey: "estado",
-            header: ({ column }) => {
-                return (
-                    <div className="flex gap-2 items-center">
-                        <div>Estado</div>
-                        <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                        >
-                            <ArrowUpDown className="h-3 w-3" />
-                        </Button>
-                    </div>
-                )
-            },
-            cell: ({ row }) => {
-                return (
-                    <div className="capitalize">{row.original.estado.split('_').join(' ')}</div>
+                    <div className="capitalize">{row.original.carrera.split('_').join(' ')}</div>
                 )
             }
         },
         {
             id: "actions",
             cell: ({ row }) => {
-                const eliminarProspecto = async (id: string) => {
-                    const resp = await deleteProspecto(id);
+                const eliminarAlumno = async (id: string) => {
+                    const resp = await deleteAlumno(id);
 
                     toast({
                         title: "¡Éxito!",
@@ -268,7 +186,7 @@ export function DataTableProspectos({
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
                             <DropdownMenuItem onClick={() => handleModal(row.original)}>Editar</DropdownMenuItem>
-                            <DropdownMenuItem onClick={() => eliminarProspecto(row.original.id)}>Eliminar</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => eliminarAlumno(row.original.id)}>Eliminar</DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
                 )

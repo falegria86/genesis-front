@@ -18,6 +18,7 @@ export interface Alumno {
 }
 
 export interface CreateAlumno {
+    id?: string;
     nombre: string;
     ap_paterno: string;
     ap_materno: string;
