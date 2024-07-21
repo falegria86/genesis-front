@@ -1,9 +1,12 @@
-"use client";
+'use client';
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react"
+import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { saveAs } from 'file-saver';
+import { pdf } from '@react-pdf/renderer';
+import { PdfCreate } from "../PdfCreate";
 
 import {
     ColumnDef,
@@ -15,14 +18,14 @@ import {
     getSortedRowModel,
     ColumnFiltersState,
     getFilteredRowModel,
-} from "@tanstack/react-table"
+} from "@tanstack/react-table";
 
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
 
 import {
     Table,
@@ -31,10 +34,9 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from "@/components/ui/table"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { deleteProspecto } from "@/actions/prospectosActions";
+} from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { useToast } from "../ui/use-toast";
 import { Alumno } from "@/interfaces/alumnosInterface";
 import { deleteAlumno } from "@/actions/alumnosActions";
@@ -52,7 +54,32 @@ export function DataTableAlumnos({
     const [sorting, setSorting] = useState<SortingState>([]);
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
+    const generatePDF = async (row: Alumno) => {
+        const doc = <PdfCreate data={row} />;
+        const asPdf = pdf(doc);
+        asPdf.updateContainer(doc);
+        const blob = await asPdf.toBlob();
+        saveAs(blob, `Inscripcion_${row.nombre}_${row.ap_paterno}.pdf`);
+    };
+
     const columns: ColumnDef<Alumno>[] = [
+        {
+            accessorKey: "matricula",
+            header: ({ column }) => {
+                return (
+                    <div className="flex gap-2 items-center">
+                        <div>Matrícula</div>
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                        >
+                            <ArrowUpDown className="h-3 w-3" />
+                        </Button>
+                    </div>
+                )
+            },
+        },
         {
             accessorKey: "nombre",
             header: ({ column }) => {
@@ -186,6 +213,7 @@ export function DataTableAlumnos({
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
                             <DropdownMenuItem onClick={() => handleModal(row.original)}>Editar</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => generatePDF(row.original)}>Generar PDF</DropdownMenuItem>
                             <DropdownMenuItem onClick={() => eliminarAlumno(row.original.id)}>Eliminar</DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>

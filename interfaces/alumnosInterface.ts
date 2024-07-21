@@ -3,7 +3,7 @@ export interface Alumno {
     nombre: string;
     ap_paterno: string;
     ap_materno: string;
-    fec_nacimiento?: Date;
+    fec_nacimiento: Date;
     genero?: string;
     calle: string;
     num_exterior: string;
@@ -15,6 +15,7 @@ export interface Alumno {
     telefono?: string;
     email?: string;
     carrera: string;
+    matricula: string;
 }
 
 export interface CreateAlumno {
