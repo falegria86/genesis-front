@@ -11,7 +11,7 @@ export const PdfCreate = ({ data }: { data: Alumno }) => {
             minHeight: '100%',
         },
         section: {
-            marginBottom: 10,
+            marginBottom: 6,
         },
         logoContainer: {
             display: 'flex',
@@ -85,7 +85,8 @@ export const PdfCreate = ({ data }: { data: Alumno }) => {
             backgroundColor: '#e5e7eb',
             width: '100%',
             borderRadius: 999,
-            padding: '8px 16px'
+            padding: '8px 16px',
+            marginBottom: 6,
         },
         headerText: {
             fontSize: 11,
