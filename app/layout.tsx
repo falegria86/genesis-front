@@ -21,14 +21,14 @@ export default function RootLayout({
   return (
     <ClerkProvider localization={esES}>
       <html lang='es'>
-        <body>
+        <body className="bg-slate-900">
           <ThemeProvider
             attribute="class"
             defaultTheme="dark"
           // enableSystem
           // disableTransitionOnChange
           >
-            <main className="h-full">
+            <main className="h-full ">
               {children}
             </main>
             <Toaster />
