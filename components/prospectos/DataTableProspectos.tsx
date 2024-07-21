@@ -298,14 +298,14 @@ export function DataTableProspectos({
 
     return (
         <div className="mt-16">
-            <div className="flex gap-5 items-center py-4">
+            <div className="block space-y-2 md:space-y-0 md:flex gap-5 items-center py-4">
                 <Input
                     placeholder="Buscar por nombre"
                     value={(table.getColumn("nombre")?.getFilterValue() as string) ?? ""}
                     onChange={(event) =>
                         table.getColumn("nombre")?.setFilterValue(event.target.value)
                     }
-                    className="max-w-sm"
+                    className="w-full md:max-w-sm"
                 />
                 <Input
                     placeholder="Buscar por apellido paterno"
@@ -313,7 +313,7 @@ export function DataTableProspectos({
                     onChange={(event) =>
                         table.getColumn("ap_paterno")?.setFilterValue(event.target.value)
                     }
-                    className="max-w-sm"
+                    className="w-full md:max-w-sm"
                 />
                 <Input
                     placeholder="Buscar por apellido materno"
@@ -321,7 +321,7 @@ export function DataTableProspectos({
                     onChange={(event) =>
                         table.getColumn("ap_materno")?.setFilterValue(event.target.value)
                     }
-                    className="max-w-sm"
+                    className="w-full md:max-w-sm"
                 />
             </div>
             <Table>

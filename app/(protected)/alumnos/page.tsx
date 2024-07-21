@@ -8,8 +8,8 @@ export default async function AlumnosPage() {
 
     return (
         <>
-            <div className="flex justify-between items-center mt-8">
-                <h4 className="font-semibold text-center uppercase">Alumnos</h4>
+            <div className="block sm:flex justify-between items-center mt-8">
+                <h4 className="font-semibold text-center uppercase mb-5 sm:mb-0">Alumnos</h4>
                 <AlumnosModal />
             </div>
             <AlumnosComponent data={alumnos} />

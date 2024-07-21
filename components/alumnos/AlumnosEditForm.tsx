@@ -86,7 +86,7 @@ export const AlumnosEditForm = ({
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}
                 >
-                    <div className="grid grid-cols-2 gap-5">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                         <div>
                             <FormField
                                 control={form.control}

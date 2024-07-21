@@ -8,8 +8,8 @@ export default async function ProspectosPage() {
 
   return (
     <>
-      <div className="flex justify-between items-center mt-8">
-        <h3 className="font-bold text-center uppercase">Prospectos</h3>
+      <div className="block sm:flex justify-between items-center mt-8">
+        <h4 className="font-bold text-center uppercase mb-5 sm:mb-0">Prospectos</h4>
         <ProspectosModal />
       </div>
 

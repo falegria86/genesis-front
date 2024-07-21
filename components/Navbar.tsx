@@ -9,7 +9,7 @@ export const Navbar = () => {
 
     return (
         <nav className="flex justify-between border-b pb-3 border-gray-300">
-            <ul className="flex gap-16 text-sm font-medium">
+            <ul className="flex gap-4 sm:gap-16 text-sm font-medium">
                 <Link href="/">
                     <li className={`${pathname === '/' ? 'bg-purple-700' : 'bg-transparent'} text-white font-normal py-2 px-4 rounded-full`}>
                         Prospectos
